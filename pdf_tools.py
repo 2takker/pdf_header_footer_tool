@@ -9,7 +9,9 @@ def choose_pdf_path() -> 'pdf_path':
     filename = askopenfilename() 
     return filename
 
-def generate_header(left_text:str='', middle_text='', right_text=''):
+def generate_header(left_text='', 
+                    middle_text='', 
+                    right_text=''):
     """Generates a pdf contraining specified header"""
     width, height = A4
 
@@ -23,8 +25,25 @@ def generate_header(left_text:str='', middle_text='', right_text=''):
 
     can.save()
 
+def generate_footer(left_text='', 
+                    middle_text='', 
+                    right_text=''):
+    """Generates a pdf contraining specified header"""
+    width, height = A4
+
+    can = canvas.Canvas('footer.pdf', pagesize=A4)
+    can.drawString(x=0.075*width, y=0.03*height, text=left_text)
+    can.drawCentredString(x=0.5*width, y=0.03*height, text=middle_text)
+    can.drawRightString(x=0.925*width, y=0.03*height, text=right_text)
+
+    # This might be used later, rather than saving a pdf file each time
+    #can.getpdfdata()  
+
+    can.save()
+
 
 if __name__ == "__main__":
     #choose_pdf_path()
     generate_header('left', 'middle', 'right')
+    generate_footer('footer left', 'footer middle', 'footer right')
     
